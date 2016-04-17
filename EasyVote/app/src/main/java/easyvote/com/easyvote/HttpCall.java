@@ -26,6 +26,8 @@ public class HttpCall {
         requestParams.put("email", email);
         requestParams.put("phone", phone);
         requestParams.put("password", password);
+        requestParams.put("register", "");
+
 
         EndPoints.getRegisterData(requestParams, new JsonHttpResponseHandler() {
 
@@ -60,6 +62,8 @@ public class HttpCall {
         RequestParams requestParams = new RequestParams();
         requestParams.put("email", email);
         requestParams.put("password", password);
+        requestParams.put("login", "");
+
 
         Log.e("inGetLogin",password);
 

@@ -1,6 +1,9 @@
 package easyvote.com.easyvote;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.design.widget.Snackbar;
@@ -16,6 +19,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     Button register,login;
     EditText name,email,phone,password;
+    private View mLoginFormView;
+    private View mProgressView;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
@@ -36,6 +42,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         register.setOnClickListener(this);
         login.setOnClickListener(this);
 
+        mLoginFormView = findViewById(R.id.register_form);
+        mProgressView = findViewById(R.id.register_progress);
+
     }
 
     @Override
@@ -46,6 +55,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 if (!name.getText().toString().isEmpty() && !email.getText().toString().isEmpty()
                         &&!password.getText().toString().isEmpty() && !phone.getText().toString().isEmpty() )
                 {
+                    showProgress(true);
                     new HttpCall().getRegisterData(RegisterActivity.this,name.getText().toString(),
                             email.getText().toString(),phone.getText().toString(),password.getText().toString());
                 }else
@@ -58,4 +68,38 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 startActivity(intent);
         }
     }
+
+
+    private void showProgress(final boolean show) {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            mLoginFormView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+                }
+            });
+
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mProgressView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+        } else {
+            // The ViewPropertyAnimator APIs are not available, so simply show
+            // and hide the relevant UI components.
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+        }
+    }
 }
+

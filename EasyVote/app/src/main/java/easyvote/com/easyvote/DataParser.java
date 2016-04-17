@@ -30,8 +30,10 @@ public class DataParser {
                     JSONArray message = jsonObject.getJSONArray("result");
                 //Toast.makeText(context, String.valueOf(message.length()) + "vbnm", Toast.LENGTH_LONG).show();
 
-                if (jsonObject.get("success")=="1")
+                if (jsonObject.get("success").equals("1"))
                 {
+                    Toast.makeText(context,"Logged in",Toast.LENGTH_SHORT).show();
+
                     Intent intent = new Intent(context,HomeActivity.class);
                     ((RegisterActivity) context).startActivity(intent);
                 }else
