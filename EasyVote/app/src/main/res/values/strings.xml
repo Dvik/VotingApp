@@ -15,4 +15,11 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string-array name="candidate_names">
+        <item>Abhishek Verma</item>
+        <item>Rakesh Sharma</item>
+        <item>Abhinav Mukund</item>
+        <item>Aakash Singh</item>
+        <item>Karandeep Kaur</item>
+    </string-array>
 </resources>
