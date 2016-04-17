@@ -30,6 +30,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -143,8 +146,9 @@ public class LoginActivity extends AppCompatActivity{
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+            /*mAuthTask = new UserLoginTask(email, password);
+            mAuthTask.execute((Void) null);*/
+            new HttpCall().getLogin(LoginActivity.this,mEmailView.getText().toString(),mPasswordView.getText().toString());
         }
     }
 
@@ -251,5 +255,6 @@ public class LoginActivity extends AppCompatActivity{
             showProgress(false);
         }
     }
+
 }
 
